@@ -1,0 +1,9 @@
+t1, p2 - start, blocked
+t2, p1 - start, blocked
+resume t2
+t2 run resume t1
+t2 suspend
+t1 change pri -> 1
+t1 resume t2
+t1 change t2 pri-> 0
+t2 destroy t1
