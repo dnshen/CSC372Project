@@ -3,6 +3,7 @@
 
 #include "defines.h"
 #include "list.h"
+#include "message.h"
 
 typedef struct type_STACK Stack;
 
@@ -13,6 +14,7 @@ struct type_STACK
 
 extern TD *Active, Kernel;
 extern LL *ReadyQ, *BlockedQ, *FreeQ;
+extern Mailbox* mailbox;
 
 void InitReadyQ();
 void InitBlockedQ();

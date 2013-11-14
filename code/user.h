@@ -12,6 +12,9 @@ RC Suspend();
 RC ResumeThread (ThreadId tid);
 RC ChangeThreadPriority(ThreadId tid, int newPriority);
 
+//*Msg SendMessage (ThreadId receiverId, int message);
+//*Msg ReceiveMessage (ThreadId receiverId);
+
 void mymain(void);
 
 #endif

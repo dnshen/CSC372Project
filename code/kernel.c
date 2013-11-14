@@ -2,12 +2,14 @@
 #include "list.h"
 #include "kernel.h"
 #include "main.h"
+#include "message.h"
 
 #include <stdlib.h>
 #include <assert.h>
 
 TD *Active, Kernel;
 LL *ReadyQ, *BlockedQ, *FreeQ;
+Mailbox* mailbox;
 Stack KernelStack;
 
 void InitReadyQ() {
@@ -30,6 +32,7 @@ void InitFreeQ() {
 void InitKernel(void) {
   Active = CreateTD(KERNEL_TID);
   InitTD(Active, 0, 0, 1);  //Will be set with proper return registers on context switch
+  mailbox = CreateMailBox();
 
   InitReadyQ();
   InitBlockedQ();
