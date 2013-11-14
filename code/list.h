@@ -66,8 +66,6 @@ TD* FindTD(ThreadId tid, LL *list);
 //NOTE: Dequeue does not free pointer
 RC DequeueTD(TD *td );
 
-#ifndef NATIVE
 //prints the elements of the list
 void printList(LL* list);
-#endif
 #endif

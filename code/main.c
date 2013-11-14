@@ -36,12 +36,18 @@ void myprint(char *text)
     }
   }
 }
-
 #else /* NATIVE */
 
 void myprint(char *text)
 {
   printf(text);
 }
-
 #endif /* NATIVE */
+
+void myprintdebug(char *text)
+{
+  #ifdef DEBUG
+      myprint(text);
+  #endif
+}
+

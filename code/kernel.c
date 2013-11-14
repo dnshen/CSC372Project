@@ -82,13 +82,12 @@ void K_SysCall( SysCallType type, uval32 arg0, uval32 arg1, uval32 arg2)
     break;
   } 
   
-  myprint("Scheduling next thread\n");
-#ifndef NATIVE
-  myprint("readyQ\n");
+  myprintdebug("Scheduling next thread\n");
+  myprintdebug("readyQ\n");
   printList(ReadyQ);
-  myprint("blockedQ\n");
+  myprintdebug("blockedQ\n");
   printList(BlockedQ);
-#endif
+
   ScheduleNextThread();
   
 #ifdef NATIVE
@@ -99,14 +98,14 @@ void K_SysCall( SysCallType type, uval32 arg0, uval32 arg1, uval32 arg2)
 
 void ScheduleNextThread() {
   if (ReadyQ->head == NULL) {
-	myprint("Ready queue empty\n");
+	myprintdebug("Ready queue empty\n");
 	return;
   }
   if (Active != NULL) {
 	if (Active->priority > ReadyQ->head->priority) {
-		myprint("switching to higher pri thread\n");
+		myprintdebug("switching to higher pri thread\n");
 		if (Active->tid != KERNEL_TID) {
-			myprint("moving active to ready q\n");
+			myprintdebug("moving active to ready q\n");
 			PriorityEnqueue(Active, ReadyQ); 
 		}
 		Active = NULL;
@@ -114,12 +113,12 @@ void ScheduleNextThread() {
   }
   
   if (Active == NULL || Active->tid == KERNEL_TID) {
-    myprint("setting new active thread\n");
+    myprintdebug("setting new active thread\n");
     Active = DequeueHead(ReadyQ);
   }
   
   if (Active->tid == 2) {
-	myprint("setting active to test\n");
+	myprintdebug("setting active to test\n");
   }
    myprint("done scheduling\n");
 }

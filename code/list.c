@@ -35,9 +35,11 @@ void InitTD(TD *td, uval32 pc, uval32 sp, uval32 priority)
     td->regs.sr  = DEFAULT_THREAD_SR; 
     td->priority = priority;
 	if (td->tid != KERNEL_TID) {
-		asm volatile("ldw r10, %0" : : "m" (sp));
-		asm volatile("ldw r9, %0" : : "m" (pc));
-		asm volatile("stw r9, 108(r10)");
+		#ifdef NATIVE
+			asm volatile("ldw r10, %0" : : "m" (sp));
+			asm volatile("ldw r9, %0" : : "m" (pc));
+			asm volatile("stw r9, 108(r10)");
+		#endif
 	}
   } else {
     myprint("Tried to initialize NULL pointer\n");
@@ -175,19 +177,19 @@ RC DequeueTD(TD *td ){
 }
 
 //Print the elements of the list
-#ifndef NATIVE
 void printList(LL* list) {
-	TD* currentTD = list->head;
-	printf("printing list\n");
-	while (currentTD != NULL) {
-		printf("tid: %d\t", currentTD->tid);
-		if (list->type == L_WAITING) {
-			printf("wait time: %d\t", currentTD->waittime);
-		} else if (list->type == L_PRIORITY) {
-			printf("priority: %d\t", currentTD->priority);
+	#ifdef DEBUG
+		TD* currentTD = list->head;
+		printf("printing list\n");
+		while (currentTD != NULL) {
+			printf("tid: %d\t", currentTD->tid);
+			if (list->type == L_WAITING) {
+				printf("wait time: %d\t", currentTD->waittime);
+			} else if (list->type == L_PRIORITY) {
+				printf("priority: %d\t", currentTD->priority);
+			}
+			printf("\n");
+			currentTD = currentTD->link;
 		}
-		printf("\n");
-		currentTD = currentTD->link;
-	}
+	#endif
 }
-#endif

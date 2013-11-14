@@ -2,7 +2,10 @@
 #define _DEFINES_H_
 
 //comment out to compile on x86
-#define NATIVE
+//#define NATIVE
+
+//comment out to remove most debug msgs
+//#define DEBUG
 
 typedef unsigned char  uval8;
 typedef unsigned int   uval32;

@@ -5,6 +5,7 @@
 
 int main(void);
 void myprint(char *text);
+void myprintdebug(char *text);
 void printHex(uval32 num);
 
 
